@@ -11,7 +11,7 @@ const app = express();
 // post işlemlerinde yaşanılan veriyi düzgün yazmama hatasını bunun yardımı ile çzöüyoruz.
 const cors = require('cors');
 
-const port = proces.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 
 const categoryRoute = require('./routes/categories.js');
 const productRoute = require('./routes/products.js');
