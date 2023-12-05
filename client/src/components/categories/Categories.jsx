@@ -19,6 +19,14 @@ function Categories({ categories, setCategories, setFiltered, products }) {
 
   return (
     <ul className="flex md:flex-col gap-4 text-lg">
+      <li
+        className={`category-item ${
+          "Tümü" === categoryTitle && "!bg-pink-700"
+        }`}
+        onClick={() => setCategoryTitle("Tümü")}
+      >
+        <span>Tümü</span>
+      </li>
       {categories.map((item) => (
         <li
           className={`category-item ${
