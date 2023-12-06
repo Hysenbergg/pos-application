@@ -4,7 +4,7 @@ import "./style.css";
 import AddCategory from "./AddCategory";
 import EditCategories from "./EditCategories";
 
-function Categories({ categories, setCategories, setFiltered, products, getCategories }) {
+function Categories({ categories, setCategories, setFiltered, products }) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [categoryTitle, setCategoryTitle] = useState("Tümü");
@@ -55,7 +55,6 @@ function Categories({ categories, setCategories, setFiltered, products, getCateg
         setCategories={setCategories}
         isAddModalOpen={isAddModalOpen}
         setIsAddModalOpen={setIsAddModalOpen}
-        getCategories={getCategories}
       />
       <EditCategories
         isEditModalOpen={isEditModalOpen}

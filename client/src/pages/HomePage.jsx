@@ -61,7 +61,6 @@ function HomePage() {
               setCategories={setCategories}
               setFiltered={setFiltered}
               products={products}
-              getCategories={getCategories}
             />
           </div>
           <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10 min-h-[500px]">
