@@ -69,6 +69,7 @@ const Login = () => {
             <Form.Item
               label={"Şifre"}
               name={"password"}
+              
               rules={[
                 {
                   required: true,
@@ -76,7 +77,7 @@ const Login = () => {
                 },
               ]}
             >
-              <Input />
+              <Input.Password />
             </Form.Item>
             <Form.Item name={"remember"} valuePropName="checked">
               <div className="flex justify-between items-center">
