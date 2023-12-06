@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import {Button, Input, Space, Spin, Table } from "antd";
+import { Button, Input, Space, Spin, Table } from "antd";
 import Header from "../components/header/Header";
 import Highlighter from "react-highlight-words";
 import { SearchOutlined } from "@ant-design/icons";
+import StatisticCard from "../components/statistics/StatisticCard";
 
 function CustomerPage() {
-  const [bills, setBills] = useState();
+  const [bills, setBills] = useState([]);
+  const [products, setProducts] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -13,7 +15,9 @@ function CustomerPage() {
   useEffect(() => {
     const getBills = async () => {
       try {
-        const res = await fetch(process.env.REACT_APP_SERVER_URL + "/api/bills/all-bills");
+        const res = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/bills/all-bills"
+        );
         const data = await res.json();
         setBills(data);
       } catch (error) {
@@ -23,6 +27,27 @@ function CustomerPage() {
 
     getBills();
   }, []);
+
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await fetch(
+          process.env.REACT_APP_SERVER_URL + "/api/products/all-products"
+        );
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getProducts();
+  }, []);
+
+  const totalAmount = () => {
+    const amount = bills.reduce((total, item) => item.totalAmount + total, 0);
+    return `${amount.toFixed(2)}₺`;
+  };
 
   // Bu ve altındaki fonksiyonlar table içerisinde filtreleme işlemlerinde kullanılıyor.
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -144,13 +169,13 @@ function CustomerPage() {
       title: "Müşteri Adı",
       dataIndex: "customerName",
       key: "customerName",
-      ...getColumnSearchProps("customerName")
+      ...getColumnSearchProps("customerName"),
     },
     {
       title: "Telefon Numarası",
       dataIndex: "customerPhoneNumber",
       key: "customerPhoneNumber",
-      ...getColumnSearchProps("customerPhoneNumber")
+      ...getColumnSearchProps("customerPhoneNumber"),
     },
     {
       title: "Oluşturma Tarihi",
@@ -161,33 +186,59 @@ function CustomerPage() {
       },
     },
   ];
-  
+
   return (
     <>
-    <Header />
-        <h1 className="text-4xl font-bold text-center mb-4">Müşteriler</h1>
-     {
-      bills ? (
-        <div className="px-6">
-        <Table
-          dataSource={bills}
-          columns={columns}
-          bordered
-          pagination={false}
-          scroll={{
-            y: 1000,
-            x: 300
-          }}
-          rowKey="_id"
-        />
-      </div>
+      <Header />
+      <h1 className="text-4xl font-bold text-center mb-4">Müşteriler ve İstatistikler</h1>
+      {bills ? (
+        <>
+          <div className="flex flex-col px-6 md:pb-0 pb-20">
+            <div className="statistic-section">
+              <div className="statistic-cards grid xl:grid-cols-4 md:grid-cols-2 md:gap-10 gap-4 mt-3 mb-10">
+                <StatisticCard
+                  title={"Toplam Müşteri"}
+                  amount={bills?.length}
+                  image={"images/user.png"}
+                />
+                <StatisticCard
+                  title={"Toplam Kazanç"}
+                  amount={totalAmount()}
+                  image={"images/money.png"}
+                />
+                <StatisticCard
+                  title={"Toplam Satış"}
+                  amount={bills?.length}
+                  image={"images/sale.png"}
+                />
+                <StatisticCard
+                  title={"Toplam Ürün"}
+                  amount={products.length}
+                  image={"images/product.png"}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="px-6">
+            <Table
+              dataSource={bills}
+              columns={columns}
+              bordered
+              pagination={false}
+              scroll={{
+                y: 1000,
+                x: 300,
+              }}
+              rowKey="_id"
+            />
+          </div>
+        </>
       ) : (
         <Spin
           size="large"
           className="absolute top-1/2 h-screen w-screen flex justify-center"
         />
-      )
-     }
+      )}
     </>
   );
 }

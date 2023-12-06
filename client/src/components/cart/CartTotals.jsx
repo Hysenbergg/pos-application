@@ -123,7 +123,7 @@ function CartTotals() {
           <Button
             type="primary"
             danger
-            className="w-full mt-2 flex justify-center items-center mb-10"
+            className="w-full mt-2 flex justify-center items-center mb-10 sm:mb-0"
             icon={<ClearOutlined />}
             disabled={cart.cartItems.length === 0}
             onClick={() => {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Form, Input, Modal, message } from "antd";
 
-const AddCategory = ({ isAddModalOpen, setIsAddModalOpen, categories, setCategories}) => {
+const AddCategory = ({ isAddModalOpen, setIsAddModalOpen, categories, setCategories, getCategories}) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -17,6 +17,8 @@ const AddCategory = ({ isAddModalOpen, setIsAddModalOpen, categories, setCategor
         _id: Math.random(),
         title: values.title
       }]);
+      setIsAddModalOpen(false);
+      getCategories();
     } catch (error) {
       message.error("Bir şeyler yanlış oldu!");
       console.log(error);

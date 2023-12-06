@@ -148,7 +148,7 @@ const EditProduct = () => {
         rowKey={"_id"}
         scroll={{
           x: 1000,
-          y: 600,
+          y: 450,
         }}
       />
       <Modal

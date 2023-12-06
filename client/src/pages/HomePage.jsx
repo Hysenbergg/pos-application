@@ -30,25 +30,25 @@ function HomePage() {
 
   // Get Categories
   useEffect(() => {
-    const getCategories = async () => {
-      try {
-        const response = await fetch(
-          process.env.REACT_APP_SERVER_URL + "/api/categories/all-categories"
-        );
-        const data = await response.json();
-        data &&
-          setCategories(
-            data.map((item) => {
-              return { ...item, value: item.title };
-            })
-          );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     getCategories();
   }, []);
+
+  const getCategories = async () => {
+    try {
+      const response = await fetch(
+        process.env.REACT_APP_SERVER_URL + "/api/categories/all-categories"
+      );
+      const data = await response.json();
+      data &&
+        setCategories(
+          data.map((item) => {
+            return { ...item, value: item.title };
+          })
+        );
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
@@ -61,6 +61,7 @@ function HomePage() {
               setCategories={setCategories}
               setFiltered={setFiltered}
               products={products}
+              getCategories={getCategories}
             />
           </div>
           <div className="products flex-[8] max-h-[calc(100vh_-_112px)] overflow-y-auto pb-10 min-h-[500px]">

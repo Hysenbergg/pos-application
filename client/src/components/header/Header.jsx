@@ -6,7 +6,6 @@ import {
   ShoppingCartOutlined,
   CopyOutlined,
   UserOutlined,
-  BarChartOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import { useSelector } from "react-redux";
@@ -75,25 +74,25 @@ function Header({ setSearch }) {
             <UserOutlined className="text-xl md:text-2xl" />
             <span className="text-[10px] md:text-xs">Müşteriler</span>
           </Link>
-          <Link
+          {/*<Link
             to="/statistics"
             className={`menu-link ${pathname === "/statistics" && "active"}`}
           >
             <BarChartOutlined className="text-xl md:text-2xl" />
             <span className="text-[10px] md:text-xs">İstatistikler</span>
-          </Link>
+        </Link>*/}
           <div onClick={handleLogOut}>
-            <Link
-              to="/login"
-              className={`menu-link`}
-            >
+            <Link to="/login" className={`menu-link`}>
               <LogoutOutlined className="text-xl md:text-2xl" />
               <span className="text-[10px] md:text-xs">Çıkış Yap</span>
             </Link>
           </div>
         </div>
         <Badge count={cart.cartItems.length} className="flex md:hidden pr-2">
-          <Link to="/cart" className={`menu-link ${pathname === "/cart" && "active"}`}>
+          <Link
+            to="/cart"
+            className={`menu-link ${pathname === "/cart" && "active"}`}
+          >
             <ShoppingCartOutlined className="text-xl md:text-2xl mb-1" />
             <span className="text-[10px] md:text-xs">Sepet</span>
           </Link>
